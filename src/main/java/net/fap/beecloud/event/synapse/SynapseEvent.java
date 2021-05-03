@@ -5,11 +5,10 @@ import net.fap.beecloud.event.Event;
 
 public class SynapseEvent extends Event {
 
-    public Client client;
+	public Client client;
 
-    public Client getClient()
-    {
-        return this.client;
-    }
+	public Client getClient() {
+		return this.client;
+	}
 
 }

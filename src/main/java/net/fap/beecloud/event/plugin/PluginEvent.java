@@ -5,15 +5,14 @@ import net.fap.beecloud.plugin.PluginBase;
 
 public class PluginEvent extends Event {
 
-    public PluginBase plugin;
+	public PluginBase plugin;
 
-    public PluginBase getPlugin() {
-        return plugin;
-    }
+	public PluginBase getPlugin() {
+		return plugin;
+	}
 
-    public String getPluginName()
-    {
-        return plugin.getName();
-    }
+	public String getPluginName() {
+		return plugin.getName();
+	}
 
 }

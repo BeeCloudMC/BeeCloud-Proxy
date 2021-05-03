@@ -10,9 +10,8 @@ import org.fusesource.jansi.Ansi;
 
 public class TextFormat {
 
-    public static Ansi color(String str, Ansi.Color color)
-    {
-        return Ansi.ansi().a(color).a(str).reset();
-    }
+	public static Ansi color(String str, Ansi.Color color) {
+		return Ansi.ansi().a(color).a(str).reset();
+	}
 
 }

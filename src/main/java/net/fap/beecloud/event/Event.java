@@ -11,30 +11,28 @@ import net.fap.beecloud.plugin.RegisterListener;
 
 public class Event {
 
-    protected String eventName = null;
-    private boolean isCancelled = false;
+	protected String eventName = null;
+	private boolean isCancelled = false;
 
-    public Event() {}
+	public Event() {
+	}
 
-    public String getEventName()
-    {
-        return this.eventName == null ? this.getClass().getName() : this.eventName;
-    }
+	public String getEventName() {
+		return this.eventName == null ? this.getClass().getName() : this.eventName;
+	}
 
-    public void setCancelled() {
-        this.isCancelled = true;
-    }
+	public void setCancelled() {
+		this.isCancelled = true;
+	}
 
-    public void call()
-    {
-        EventHandler.getListener().call(this);
-        for (RegisterListener listener : Server.getServer().serverListeners)
-            listener.getListener().call(this);
-    }
+	public void call() {
+		EventHandler.getListener().call(this);
+		for (RegisterListener listener : Server.getServer().serverListeners)
+			listener.getListener().call(this);
+	}
 
-    public boolean isCancelled()
-    {
-        return this.isCancelled;
-    }
+	public boolean isCancelled() {
+		return this.isCancelled;
+	}
 
 }

@@ -21,18 +21,17 @@ public class CommandHandler {
 
 	public static void handleCommand(String commandStr, String commandSender) {
 		if (commandStr.length() > 0 && commandMap.containsKey(commandStr.split("\\s+")[0])) {
-			commandMap.get(commandStr.split("\\s+")[0]).runCommand(commandStr.split("\\s+"),commandSender);
+			commandMap.get(commandStr.split("\\s+")[0]).runCommand(commandStr.split("\\s+"), commandSender);
 		} else ServerLogger.info("Unknown command! type help for help.");
 	}
 
-	public static void handleCommand(String command, String commandArgs[], String commandSender)
-	{
+	public static void handleCommand(String command, String[] commandArgs, String commandSender) {
 		if (command.length() > 0 && commandMap.containsKey(command))
-			commandMap.get(command).runCommand(commandArgs,commandSender);
+			commandMap.get(command).runCommand(commandArgs, commandSender);
 		else SynapsePlayer.getPlayer(commandSender).sendMessage("Unknown command! type help for help.");
 	}
 
-	public void setCommandStr(String commandStr,String commandUsage) {
+	public void setCommandStr(String commandStr, String commandUsage) {
 		this.commandStr = commandStr;
 		this.commandUsage = commandUsage;
 	}

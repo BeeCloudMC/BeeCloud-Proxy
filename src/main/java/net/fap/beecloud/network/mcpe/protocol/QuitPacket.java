@@ -9,26 +9,26 @@ import net.fap.beecloud.SynapsePlayer;
  * @author catrainbow
  */
 
-public class QuitPacket extends BeeCloudPacket{
+public class QuitPacket extends BeeCloudPacket {
 
-    public String player;
+	public String player;
 
-    public String getPlayer() {
-        return this.player;
-    }
+	public String getPlayer() {
+		return this.player;
+	}
 
-    @Override
-    public void putString(String[] pk2) {
-        this.player = pk2[1];
-    }
+	@Override
+	public void putString(String[] pk2) {
+		this.player = pk2[1];
+	}
 
-    @Override
-    public void resend() {
-        SynapsePlayer.removePlayer(this);
-    }
+	@Override
+	public void resend() {
+		SynapsePlayer.removePlayer(this);
+	}
 
-    @Override
-    public String to_String() {
-        return "QuitPacket:"+player;
-    }
+	@Override
+	public String to_String() {
+		return "QuitPacket:" + player;
+	}
 }

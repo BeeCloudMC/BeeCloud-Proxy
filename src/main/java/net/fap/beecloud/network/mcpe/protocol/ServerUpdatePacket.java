@@ -11,19 +11,19 @@ import net.fap.beecloud.BeeCloud;
 
 public class ServerUpdatePacket extends BeeCloudPacket {
 
-    public int count;
+	public int count;
 
-    @Override
-    public void putString(String[] pk2) {
-    }
+	@Override
+	public void putString(String[] pk2) {
+	}
 
-    @Override
-    public void resend() {
-        this.count = BeeCloud.server.getOnlinePlayerCount();
-    }
+	@Override
+	public void resend() {
+		this.count = BeeCloud.server.getOnlinePlayerCount();
+	}
 
-    @Override
-    public String to_String() {
-        return "ServerUpdatePacket:"+count;
-    }
+	@Override
+	public String to_String() {
+		return "ServerUpdatePacket:" + count;
+	}
 }

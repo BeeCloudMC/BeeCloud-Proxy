@@ -4,9 +4,8 @@ import net.fap.beecloud.Client;
 
 public class ClientConnectEvent extends SynapseEvent {
 
-    public ClientConnectEvent(Client client)
-    {
-        this.client = client;
-    }
+	public ClientConnectEvent(Client client) {
+		this.client = client;
+	}
 
 }

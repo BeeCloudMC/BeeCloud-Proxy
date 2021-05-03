@@ -13,33 +13,32 @@ import net.fap.beecloud.console.ServerLogger;
 
 public class TransferPacket extends BeeCloudPacket {
 
-    private String player;
-    private String serverName;
-    private String port;
+	private final String player;
+	private final String serverName;
+	private final String port;
 
-    public TransferPacket(SynapsePlayer player , Client target)
-    {
-        this.player = player.getName();
-        this.serverName = target.getServerName();
-        this.port = target.getServerPort();
-    }
+	public TransferPacket(SynapsePlayer player, Client target) {
+		this.player = player.getName();
+		this.serverName = target.getServerName();
+		this.port = target.getServerPort();
+	}
 
-    public String getServerName() {
-        return serverName;
-    }
+	public String getServerName() {
+		return serverName;
+	}
 
-    public String getPlayer() {
-        return player;
-    }
+	public String getPlayer() {
+		return player;
+	}
 
-    @Override
-    public void resend() {
-        ServerLogger.info(player+" has transfer to "+serverName);
-        super.resend();
-    }
+	@Override
+	public void resend() {
+		ServerLogger.info(player + " has transfer to " + serverName);
+		super.resend();
+	}
 
-    @Override
-    public String to_String() {
-        return "TransferPacket:"+serverName+":"+player+":"+port;
-    }
+	@Override
+	public String to_String() {
+		return "TransferPacket:" + serverName + ":" + player + ":" + port;
+	}
 }

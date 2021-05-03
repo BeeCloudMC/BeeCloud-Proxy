@@ -10,28 +10,27 @@ package net.fap.beecloud.network.mcpe.protocol;
 
 public class BeeCloudPacket {
 
-    /**
-     * 将字符串转换为数据包的函数
-     * @param pk2 字符串形式的数据包
-     */
-    public void putString(String[] pk2)
-    {
-    }
+	/**
+	 * 将字符串转换为数据包的函数
+	 *
+	 * @param pk2 字符串形式的数据包
+	 */
+	public void putString(String[] pk2) {
+	}
 
-    /**
-     * 当数据包被回发时执行的函数
-     */
-    public void resend()
-    {
-    }
+	/**
+	 * 当数据包被回发时执行的函数
+	 */
+	public void resend() {
+	}
 
-    /**
-     * 将数据包转为字符串的函数
-     * @return 结果
-     */
-    public String to_String()
-    {
-        return null;
-    }
+	/**
+	 * 将数据包转为字符串的函数
+	 *
+	 * @return 结果
+	 */
+	public String to_String() {
+		return null;
+	}
 
 }

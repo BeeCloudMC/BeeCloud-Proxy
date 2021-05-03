@@ -6,53 +6,50 @@ import java.util.ArrayList;
 
 public class PluginBase {
 
-    public static ArrayList<PluginBase> pluginList = new ArrayList<>();
+	public static ArrayList<PluginBase> pluginList = new ArrayList<>();
 
-    private String name;
+	private String name;
 
-    private String jar;
+	private String jar;
 
-    private String className;
+	private String className;
 
-    private PluginLogger pluginLogger;
+	private PluginLogger pluginLogger;
 
-    public Server getServer()
-    {
-        return Server.getServer();
-    }
+	public Server getServer() {
+		return Server.getServer();
+	}
 
-    public PluginLogger getLogger()
-    {
-        return this.pluginLogger;
-    }
+	public PluginLogger getLogger() {
+		return this.pluginLogger;
+	}
 
-    public void setClassName(String className) {
-        this.className = className;
-    }
+	public void setClassName(String className) {
+		this.className = className;
+	}
 
-    public void setJar(String jar) {
-        this.jar = jar;
-    }
+	public void setJar(String jar) {
+		this.jar = jar;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setPluginLogger(PluginLogger logger)
-    {
-        this.pluginLogger = logger;
-    }
+	public void setPluginLogger(PluginLogger logger) {
+		this.pluginLogger = logger;
+	}
 
-    public String getJar() {
-        return jar;
-    }
+	public String getJar() {
+		return jar;
+	}
 
-    public String getClassName() {
-        return className;
-    }
+	public String getClassName() {
+		return className;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
 }

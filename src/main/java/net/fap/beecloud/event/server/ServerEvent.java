@@ -5,10 +5,10 @@ import net.fap.beecloud.network.mcpe.protocol.BeeCloudPacket;
 
 public class ServerEvent extends Event {
 
-    public BeeCloudPacket packet;
+	public BeeCloudPacket packet;
 
-    public BeeCloudPacket getPacket() {
-        return packet;
-    }
+	public BeeCloudPacket getPacket() {
+		return packet;
+	}
 
 }

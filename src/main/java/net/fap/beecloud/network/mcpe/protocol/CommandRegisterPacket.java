@@ -8,30 +8,29 @@ package net.fap.beecloud.network.mcpe.protocol;
 
 public class CommandRegisterPacket extends BeeCloudPacket {
 
-    private String commandStr;
-    private String commandUsage;
+	private String commandStr;
+	private String commandUsage;
 
-    public CommandRegisterPacket(String commandStr, String commandUsage)
-    {
-        this.commandStr = commandStr;
-        this.commandUsage = commandUsage;
-    }
+	public CommandRegisterPacket(String commandStr, String commandUsage) {
+		this.commandStr = commandStr;
+		this.commandUsage = commandUsage;
+	}
 
-    public void setCommandStr(String commandStr) {
-        this.commandStr = commandStr;
-    }
+	public void setCommandStr(String commandStr) {
+		this.commandStr = commandStr;
+	}
 
-    public void setCommandUsage(String commandUsage) {
-        this.commandUsage = commandUsage;
-    }
+	public void setCommandUsage(String commandUsage) {
+		this.commandUsage = commandUsage;
+	}
 
-    @Override
-    public void resend() {
-        super.resend();
-    }
+	@Override
+	public void resend() {
+		super.resend();
+	}
 
-    @Override
-    public String to_String() {
-        return "CommandRegisterPacket:"+commandStr+":"+commandUsage;
-    }
+	@Override
+	public String to_String() {
+		return "CommandRegisterPacket:" + commandStr + ":" + commandUsage;
+	}
 }

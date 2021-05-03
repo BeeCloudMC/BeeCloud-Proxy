@@ -9,18 +9,18 @@ package net.fap.beecloud.network.mcpe.protocol;
 
 public class DisconnectPacket extends BeeCloudPacket {
 
-    @Override
-    public void putString(String[] pk2) {
+	@Override
+	public void putString(String[] pk2) {
 
-    }
+	}
 
-    @Override
-    public void resend() {
+	@Override
+	public void resend() {
 
-    }
+	}
 
-    @Override
-    public String to_String() {
-        return "DisconnectPacket";
-    }
+	@Override
+	public String to_String() {
+		return "DisconnectPacket";
+	}
 }

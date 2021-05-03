@@ -5,21 +5,18 @@ import net.fap.beecloud.network.mcpe.protocol.LoginPacket;
 
 public class PlayerJoinEvent extends PlayerEvent {
 
-    protected String joinMessage;
+	protected String joinMessage;
 
-    public PlayerJoinEvent(LoginPacket packet)
-    {
-        this.player = packet.getPlayer();
-    }
+	public PlayerJoinEvent(LoginPacket packet) {
+		this.player = packet.getPlayer();
+	}
 
-    public PlayerJoinEvent(SynapsePlayer player)
-    {
-        this.player = player.player;
-    }
+	public PlayerJoinEvent(SynapsePlayer player) {
+		this.player = player.player;
+	}
 
-    public void setJoinMessage(String str)
-    {
-        this.joinMessage = str;
-    }
+	public void setJoinMessage(String str) {
+		this.joinMessage = str;
+	}
 
 }
