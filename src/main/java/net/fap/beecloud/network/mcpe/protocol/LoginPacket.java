@@ -21,6 +21,8 @@ public class LoginPacket extends BeeCloudPacket{
 
     public String serverName;
 
+    public String permission;
+
     @Override
     public void putString(String[] pk2)
     {
@@ -29,6 +31,7 @@ public class LoginPacket extends BeeCloudPacket{
         this.uuid = pk2[3];
         this.clientID = pk2[4];
         this.serverName = pk2[5];
+        this.permission = pk2[6];
     }
 
     public String getPlayer()

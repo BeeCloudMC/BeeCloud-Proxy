@@ -3,10 +3,12 @@ package net.fap.beecloud;
 import net.fap.beecloud.console.ServerLogger;
 import net.fap.beecloud.event.player.PlayerJoinEvent;
 import net.fap.beecloud.event.player.PlayerQuitEvent;
+import net.fap.beecloud.inventory.PlayerInventory;
 import net.fap.beecloud.network.mcpe.protocol.LoginPacket;
 import net.fap.beecloud.network.mcpe.protocol.QuitPacket;
 import net.fap.beecloud.network.mcpe.protocol.TransferPacket;
 import net.fap.beecloud.network.mcpe.protocol.custom.CustomPacket;
+import net.fap.beecloud.permission.Permission;
 
 /**
  * FillAmeaPixel Project
@@ -16,19 +18,27 @@ import net.fap.beecloud.network.mcpe.protocol.custom.CustomPacket;
 
 public class SynapsePlayer {
 
+    public static boolean savePlayerData = false;
+
     public String clientUUid;
     public String clientID;
     public String player;
     public String address;;
     public String serverName;
+    public String defaultPermission;
 
-    public SynapsePlayer(String player, String address, String clientUUId, String clientID, String serverName)
+    private Permission permission;
+    private PlayerInventory inventory;
+
+    public SynapsePlayer(String player, String address, String clientUUId, String clientID, String serverName,String permission)
     {
         this.clientUUid = clientUUId;
         this.clientID = clientID;
         this.player = player;
         this.address = address;
         this.serverName = serverName;
+        this.defaultPermission = permission;
+        this.permission = new Permission(this);
     }
 
     public String getName()
@@ -106,10 +116,11 @@ public class SynapsePlayer {
     {
         PlayerJoinEvent event = new PlayerJoinEvent(packet);
         event.call();
-        Server.onLinePlayerList.add(new SynapsePlayer(packet.getPlayer(), packet.address, packet.uuid, packet.clientID,packet.serverName));
+        Server.onLinePlayerList.add(new SynapsePlayer(packet.getPlayer(), packet.address, packet.uuid, packet.clientID,packet.serverName,packet.permission));
         if (!event.isCancelled()) {
             ServerLogger.info(packet.getPlayer() + "[" + packet.address + "] joined the game.");
             Client.getClient(packet.serverName).addPlayer(SynapsePlayer.getPlayer(packet.getPlayer()));
+            SynapsePlayer.getPlayer(packet.getPlayer()).inventory = new PlayerInventory(SynapsePlayer.getPlayer(packet.getPlayer()));
         }else getPlayer(packet.getPlayer()).kick("§cLogin out of the synapse server");
     }
 
@@ -133,6 +144,36 @@ public class SynapsePlayer {
     {
         TransferPacket packet = new TransferPacket(this,client);
         Server.getServer().send(packet);
+    }
+
+    public Permission getPermission()
+    {
+        return this.permission;
+    }
+
+    public void addPermission(String permission)
+    {
+        this.permission.permissionList.add(permission);
+    }
+
+    public boolean hasPermission(String permission)
+    {
+        return this.permission.permissionList.contains(permission);
+    }
+
+    public boolean isPlayer()
+    {
+        return true;
+    }
+
+    public boolean isOp()
+    {
+        return this.defaultPermission.equals(Permission.DEFAULT_OP);
+    }
+
+    public PlayerInventory getInventory()
+    {
+        return this.inventory;
     }
 
 }

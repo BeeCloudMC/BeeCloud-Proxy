@@ -296,6 +296,11 @@ public class Server {
         }
     }
 
+    public void setSavePlayerData(boolean savePlayerData)
+    {
+        SynapsePlayer.savePlayerData = savePlayerData;
+    }
+
     private void titleTick()
     {
         Runtime runtime = Runtime.getRuntime();
