@@ -9,7 +9,6 @@ package net.fap.beecloud.network.mcpe.protocol;
  */
 
 public class BeeCloudPacket {
-
 	/**
 	 * 将字符串转换为数据包的函数
 	 *
@@ -32,5 +31,4 @@ public class BeeCloudPacket {
 	public String to_String() {
 		return null;
 	}
-
 }

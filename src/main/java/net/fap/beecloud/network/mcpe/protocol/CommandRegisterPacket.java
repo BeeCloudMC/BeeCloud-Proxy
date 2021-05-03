@@ -7,7 +7,6 @@ package net.fap.beecloud.network.mcpe.protocol;
  */
 
 public class CommandRegisterPacket extends BeeCloudPacket {
-
 	private String commandStr;
 	private String commandUsage;
 

@@ -21,10 +21,10 @@ public class PluginListCommand extends CommandHandler {
 	@Override
 	public void runCommand(String[] args, String commandSender) {
 		if (args.length == 1) {
-			String plugin = " ";
+			StringBuilder plugin = new StringBuilder(" ");
 			for (PluginBase pluginBase : PluginBase.pluginList)
-				plugin += pluginBase.getName() + " ";
-			ServerLogger.info("Plugins(" + PluginBase.pluginList.size() + ") " + Ansi.ansi().fg(Ansi.Color.GREEN).a(plugin).reset());
+				plugin.append(pluginBase.getName()).append(" ");
+			ServerLogger.info("Plugins(" + PluginBase.pluginList.size() + ") " + Ansi.ansi().fg(Ansi.Color.GREEN).a(plugin.toString()).reset());
 		} else ServerLogger.info("Usage: " + commandUsage);
 	}
 

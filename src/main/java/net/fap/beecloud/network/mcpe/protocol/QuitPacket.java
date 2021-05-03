@@ -10,7 +10,6 @@ import net.fap.beecloud.SynapsePlayer;
  */
 
 public class QuitPacket extends BeeCloudPacket {
-
 	public String player;
 
 	public String getPlayer() {

@@ -17,7 +17,7 @@ public class PluginBase {
 	private PluginLogger pluginLogger;
 
 	public Server getServer() {
-		return Server.getServer();
+		return Server.getInstance();
 	}
 
 	public PluginLogger getLogger() {

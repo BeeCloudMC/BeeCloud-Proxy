@@ -10,7 +10,6 @@ import net.fap.beecloud.console.simple.CommandHandler;
  */
 
 public class CommandPacket extends BeeCloudPacket {
-
 	private String commandMessage;
 	private String commandSender;
 	private String[] commandArgs;

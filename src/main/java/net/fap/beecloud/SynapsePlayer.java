@@ -16,7 +16,6 @@ import net.fap.beecloud.network.mcpe.protocol.custom.CustomPacket;
  */
 
 public class SynapsePlayer {
-
 	public String clientUUid;
 	public String clientID;
 	public String player;
@@ -29,6 +28,33 @@ public class SynapsePlayer {
 		this.player = player;
 		this.address = address;
 		this.serverName = serverName;
+	}
+
+	public static void addPlayer(LoginPacket packet) {
+		PlayerJoinEvent event = new PlayerJoinEvent(packet);
+		event.call();
+		Server.getInstance().getOnlinePlayers().add(new SynapsePlayer(packet.getPlayer(), packet.address, packet.uuid, packet.clientID, packet.serverName));
+		if (!event.isCancelled()) {
+			ServerLogger.info(packet.getPlayer() + "[" + packet.address + "] joined the game.");
+			Client.getClient(packet.serverName).addPlayer(SynapsePlayer.getPlayer(packet.getPlayer()));
+		} else getPlayer(packet.getPlayer()).kick("§cLogin out of the synapse server");
+	}
+
+	public static void removePlayer(QuitPacket packet) {
+		Client.getClient(SynapsePlayer.getPlayer(packet.getPlayer()).serverName).removePlayer(SynapsePlayer.getPlayer(packet.getPlayer()));
+		Server.getInstance().getOnlinePlayers().remove(getPlayer(packet.getPlayer()));
+		ServerLogger.info(packet.getPlayer() + " quited the game.");
+		PlayerQuitEvent event = new PlayerQuitEvent(packet);
+		event.call();
+	}
+
+	public static SynapsePlayer getPlayer(String player) {
+		for (int i = 0; i < Server.getInstance().getOnlinePlayers().size(); i++) {
+			if (Server.getInstance().getOnlinePlayers().get(i).player.equals(player)) {
+				return Server.getInstance().getOnlinePlayers().get(i);
+			}
+		}
+		return null;
 	}
 
 	public String getName() {
@@ -50,7 +76,7 @@ public class SynapsePlayer {
 	public void sendMessage(String message) {
 		CustomPacket packet = new CustomPacket();
 		packet.putString(new String[]{"TextMessagePacket", this.getName(), message});
-		Server.getServer().send(packet);
+		Server.getInstance().send(packet);
 	}
 
 	public String getServerName() {
@@ -60,31 +86,31 @@ public class SynapsePlayer {
 	public void sendTitle(String main, String sub, int fadein, int stay, int fadeout) {
 		CustomPacket packet = new CustomPacket();
 		packet.putString(new String[]{"TextTitlePacket", this.getName(), main + ":" + sub + ":" + fadein + ":" + stay + ":" + fadeout});
-		Server.getServer().send(packet);
+		Server.getInstance().send(packet);
 	}
 
 	public void sendTitle(String main, String sub) {
 		CustomPacket packet = new CustomPacket();
 		packet.putString(new String[]{"TextTitlePacket", this.getName(), main + ":" + sub});
-		Server.getServer().send(packet);
+		Server.getInstance().send(packet);
 	}
 
 	public void sendTip(String message) {
 		CustomPacket packet = new CustomPacket();
 		packet.putString(new String[]{"TextTipPacket", this.getName(), message});
-		Server.getServer().send(packet);
+		Server.getInstance().send(packet);
 	}
 
 	public void kick(String reason) {
 		CustomPacket packet = new CustomPacket();
 		packet.putString(new String[]{"KickPlayerPacket", this.getName(), reason});
-		Server.getServer().send(packet);
+		Server.getInstance().send(packet);
 	}
 
 	public void kick() {
 		CustomPacket packet = new CustomPacket();
 		packet.putString(new String[]{"KickPlayerPacket", this.getName(), "Kicked by admin"});
-		Server.getServer().send(packet);
+		Server.getInstance().send(packet);
 	}
 
 	public void sendPacket(String packetName, String packetV) {
@@ -92,34 +118,8 @@ public class SynapsePlayer {
 		packet.putString(new String[]{packetName, this.getName(), packetV});
 	}
 
-	public static void addPlayer(LoginPacket packet) {
-		PlayerJoinEvent event = new PlayerJoinEvent(packet);
-		event.call();
-		Server.onLinePlayerList.add(new SynapsePlayer(packet.getPlayer(), packet.address, packet.uuid, packet.clientID, packet.serverName));
-		if (!event.isCancelled()) {
-			ServerLogger.info(packet.getPlayer() + "[" + packet.address + "] joined the game.");
-			Client.getClient(packet.serverName).addPlayer(SynapsePlayer.getPlayer(packet.getPlayer()));
-		} else getPlayer(packet.getPlayer()).kick("§cLogin out of the synapse server");
-	}
-
-	public static void removePlayer(QuitPacket packet) {
-		Client.getClient(SynapsePlayer.getPlayer(packet.getPlayer()).serverName).removePlayer(SynapsePlayer.getPlayer(packet.getPlayer()));
-		Server.onLinePlayerList.remove(getPlayer(packet.getPlayer()));
-		ServerLogger.info(packet.getPlayer() + " quited the game.");
-		PlayerQuitEvent event = new PlayerQuitEvent(packet);
-		event.call();
-	}
-
-	public static SynapsePlayer getPlayer(String player) {
-		for (int i = 0; i < Server.onLinePlayerList.size(); i++)
-			if (Server.onLinePlayerList.get(i).player.equals(player))
-				return Server.onLinePlayerList.get(i);
-		return null;
-	}
-
 	public void transferPlayer(Client client) {
 		TransferPacket packet = new TransferPacket(this, client);
-		Server.getServer().send(packet);
+		Server.getInstance().send(packet);
 	}
-
 }

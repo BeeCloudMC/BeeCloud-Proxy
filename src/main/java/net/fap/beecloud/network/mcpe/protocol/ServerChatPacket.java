@@ -10,7 +10,6 @@ import net.fap.beecloud.console.ServerLogger;
  */
 
 public class ServerChatPacket extends BeeCloudPacket {
-
 	public String message;
 	public String player;
 	public String server;
@@ -59,5 +58,4 @@ public class ServerChatPacket extends BeeCloudPacket {
 	public String to_String() {
 		return "ServerChatPacket:" + messageAll;
 	}
-
 }

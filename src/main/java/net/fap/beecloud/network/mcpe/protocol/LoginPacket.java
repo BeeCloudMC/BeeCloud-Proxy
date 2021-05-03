@@ -10,7 +10,6 @@ import net.fap.beecloud.SynapsePlayer;
  */
 
 public class LoginPacket extends BeeCloudPacket {
-
 	public String player;
 
 	public String address;

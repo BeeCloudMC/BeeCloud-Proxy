@@ -27,7 +27,7 @@ public class Event {
 
 	public void call() {
 		EventHandler.getListener().call(this);
-		for (RegisterListener listener : Server.getServer().serverListeners)
+		for (RegisterListener listener : Server.getInstance().serverListeners)
 			listener.getListener().call(this);
 	}
 

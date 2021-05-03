@@ -1,12 +1,13 @@
 package net.fap.beecloud;
 
 public class BeeCloud {
+	private static final String serverPath = String.valueOf(System.getProperty("user.dir"));
 
-	public static Server server;
-
-	public static void main(String[] args) {
-		server = new Server();
-		server.init();
+	public static String getServerPath() {
+		return serverPath;
 	}
 
+	public static void main(String[] args) {
+		new Server(getServerPath()).start();
+	}
 }

@@ -36,7 +36,7 @@ public class Client {
 			ServerLogger.info("ServerName: " + client.getServerName() + " Port: " + client.getServerPort());
 			ServerLogger.info("LobbyServer: " + client.isLobbyServer + " TransferOnShutdown: " + client.transferOnShutdown);
 			for (CommandRegisterPacket pk : CommandHandler.customCommandPacketList)
-				Server.getServer().send(pk);
+				Server.getInstance().send(pk);
 		}
 	}
 

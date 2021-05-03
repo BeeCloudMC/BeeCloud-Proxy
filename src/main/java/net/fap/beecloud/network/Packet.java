@@ -2,7 +2,7 @@ package net.fap.beecloud.network;
 
 import cn.nukkit.network.protocol.DataPacket;
 import cn.nukkit.network.protocol.MovePlayerPacket;
-import net.fap.beecloud.BeeCloud;
+import net.fap.beecloud.Server;
 import net.fap.beecloud.SynapsePlayer;
 import net.fap.beecloud.event.player.PlayerCommandEvent;
 import net.fap.beecloud.event.server.DataPacketReceiveEvent;
@@ -10,7 +10,6 @@ import net.fap.beecloud.network.mcpe.protocol.*;
 import net.fap.beecloud.network.mcpe.protocol.custom.CustomPacket;
 
 public class Packet {
-
 	public static void handlePacket(String pk) {
 		DataPacket pk1 = typePacket(pk);
 		if (pk1 == null) {
@@ -21,7 +20,7 @@ public class Packet {
 				DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
 				event.call();
 				if (!event.isCancelled()) {
-					BeeCloud.server.send(pk3);
+					Server.getInstance().send(pk3);
 				}
 				return;
 			} else if (pk.contains("QuitPacket")) {
@@ -31,7 +30,7 @@ public class Packet {
 				DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
 				event.call();
 				if (!event.isCancelled()) {
-					BeeCloud.server.send(pk3);
+					Server.getInstance().send(pk3);
 				}
 				return;
 			} else if (pk.contains("ServerUpdatePacket")) {
@@ -39,7 +38,7 @@ public class Packet {
 				DataPacketReceiveEvent event = new DataPacketReceiveEvent(packet);
 				event.call();
 				if (!event.isCancelled()) {
-					BeeCloud.server.send(packet);
+					Server.getInstance().send(packet);
 				}
 			} else if (pk.contains("ServerChatPacket")) {
 				String[] pk2 = pk.split("\\:");
@@ -48,7 +47,7 @@ public class Packet {
 				DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
 				event.call();
 				if (!event.isCancelled()) {
-					BeeCloud.server.send(pk3);
+					Server.getInstance().send(pk3);
 				}
 			} else if (pk.contains("ConnectPacket")) {
 				String[] pk2 = pk.split("\\:");
@@ -56,7 +55,7 @@ public class Packet {
 				DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
 				event.call();
 				if (!event.isCancelled()) {
-					BeeCloud.server.send(pk3);
+					Server.getInstance().send(pk3);
 				}
 			} else if (pk.contains("CommandPacket")) {
 				String[] pk2 = pk.split("\\:");
@@ -68,7 +67,7 @@ public class Packet {
 				commandEvent.call();
 				if (!commandEvent.isCancelled()) {
 					CommandPacket pk3 = new CommandPacket(commandMessage, commandSender, commandArgs);
-					BeeCloud.server.send(pk3);
+					Server.getInstance().send(pk3);
 					DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
 					event.call();
 				}
@@ -81,16 +80,15 @@ public class Packet {
 				DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
 				event.call();
 				if (!event.isCancelled()) {
-					BeeCloud.server.send(pk3);
+					Server.getInstance().send(pk3);
 				}
 			}
 		}
 		if (pk1 instanceof MovePlayerPacket) {
 			MovePlayerPacket pk2 = new MovePlayerPacket();
 			pk2.putString(pk);
-			BeeCloud.server.send(pk2);
+			Server.getInstance().send(pk2);
 		}
-
 	}
 
 	public static DataPacket typePacket(String pk) {

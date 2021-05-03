@@ -1,6 +1,6 @@
 package net.fap.beecloud.network.mcpe.protocol;
 
-import net.fap.beecloud.BeeCloud;
+import net.fap.beecloud.Server;
 
 /**
  * 服务器数据更新数据包
@@ -10,7 +10,6 @@ import net.fap.beecloud.BeeCloud;
  */
 
 public class ServerUpdatePacket extends BeeCloudPacket {
-
 	public int count;
 
 	@Override
@@ -19,7 +18,7 @@ public class ServerUpdatePacket extends BeeCloudPacket {
 
 	@Override
 	public void resend() {
-		this.count = BeeCloud.server.getOnlinePlayerCount();
+		this.count = Server.getInstance().getOnlinePlayers().size();
 	}
 
 	@Override

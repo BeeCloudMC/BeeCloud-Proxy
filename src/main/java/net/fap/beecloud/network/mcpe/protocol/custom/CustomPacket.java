@@ -10,7 +10,6 @@ import net.fap.beecloud.network.mcpe.protocol.BeeCloudPacket;
  */
 
 public class CustomPacket extends BeeCloudPacket {
-
 	public String packetName;
 	public String player;
 	public String message;

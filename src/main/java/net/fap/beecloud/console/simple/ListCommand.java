@@ -21,10 +21,10 @@ public class ListCommand extends CommandHandler {
 	@Override
 	public void runCommand(String[] args, String commandSender) {
 		if (args.length == 1) {
-			String playerString = "";
-			for (SynapsePlayer player : Server.onLinePlayerList)
-				playerString += player.player + " ";
-			ServerLogger.info("Player Online(" + Server.onLinePlayerList.size() + ")\n" + playerString);
+			StringBuilder playerString = new StringBuilder();
+			for (SynapsePlayer player : Server.getInstance().getOnlinePlayers())
+				playerString.append(player.player).append(" ");
+			ServerLogger.info("Player Online(" + Server.getInstance().getOnlinePlayers().size() + ")\n" + playerString);
 		} else ServerLogger.info("Usage: " + commandUsage);
 		super.runCommand(args, commandSender);
 	}

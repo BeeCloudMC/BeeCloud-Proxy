@@ -1,5 +1,6 @@
 package net.fap.beecloud.network.mcpe.protocol;
 
+import cn.hutool.core.convert.Convert;
 import net.fap.beecloud.Client;
 import net.fap.beecloud.Server;
 
@@ -10,7 +11,6 @@ import net.fap.beecloud.Server;
  */
 
 public class ConnectPacket extends BeeCloudPacket {
-
 	private String serverName;
 	private String password;
 	private String port;
@@ -20,7 +20,7 @@ public class ConnectPacket extends BeeCloudPacket {
 
 	public ConnectPacket(String serverName, String password, String serverPort, String isLobbyServer, String transferOnShutdown) {
 		this.password = password;
-		if (this.password.equals(Server.getServer().clientPassword) && !Client.allClientServer.containsKey(serverName)) {
+		if (this.password.equals(Server.getInstance().getConfigGroup().getSynapsePassword()) && !Client.allClientServer.containsKey(serverName)) {
 			this.serverName = serverName;
 			this.port = serverPort;
 			this.isLobbyServer = isLobbyServer;
@@ -31,7 +31,7 @@ public class ConnectPacket extends BeeCloudPacket {
 	}
 
 	public boolean isLobbyServer() {
-		return Boolean.valueOf(this.isLobbyServer);
+		return Convert.toBool(this.isLobbyServer);
 	}
 
 	public Client getClient() {
@@ -61,10 +61,10 @@ public class ConnectPacket extends BeeCloudPacket {
 
 	@Override
 	public String to_String() {
-		if (this.password.equals(Server.getServer().clientPassword) && !Client.allClientServer.containsKey(serverName))
+		if (this.password.equals(Server.getInstance().getConfigGroup().getSynapsePassword()) && !Client.allClientServer.containsKey(serverName)) {
 			return "ConnectPacket:SUCCESS";
-		else
+		} else {
 			return "ConnectPacket:FAILED";
+		}
 	}
-
 }

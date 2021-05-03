@@ -12,7 +12,6 @@ import net.fap.beecloud.console.ServerLogger;
  */
 
 public class TransferPacket extends BeeCloudPacket {
-
 	private final String player;
 	private final String serverName;
 	private final String port;

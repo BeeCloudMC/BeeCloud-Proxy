@@ -6,7 +6,6 @@ import net.fap.beecloud.plugin.PluginLogger;
 import org.dom4j.DocumentException;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,15 +20,15 @@ public class XMLParser {
 	public static List<PluginBase> getPluginList() throws DocumentException {
 		List<PluginBase> list = new ArrayList<>();
 
-		String[] file = Server.getServer().getPluginFile().list();
+		String[] file = Server.getInstance().getPluginFile().list();
 		for (int i = 0; i < file.length; i++) {
 			String fileName = file[i];
 			if (fileName.substring(fileName.lastIndexOf(".") + 1).equals("jar")) {
 				try {
 					String name = null;
 					String main = null;
-					String jar = Server.getServer().getPluginFile() + File.separator + fileName;
-					List<List<String>> pluginYml = readZipFile(Server.getServer().getPluginFile() + File.separator + fileName);
+					String jar = Server.getInstance().getPluginFile() + File.separator + fileName;
+					List<List<String>> pluginYml = readZipFile(Server.getInstance().getPluginFile() + File.separator + fileName);
 					for (List<String> list1 : pluginYml)
 						for (String str : list1) {
 							if (str.contains("name")) name = getPluginInfo(str, "name");

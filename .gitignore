@@ -1,3 +1,6 @@
 .idea
 *.iml
 target
+.DS_Store
+plugins
+server.json

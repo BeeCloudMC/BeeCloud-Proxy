@@ -8,7 +8,6 @@ package net.fap.beecloud.network.mcpe.protocol;
  */
 
 public class DisconnectPacket extends BeeCloudPacket {
-
 	@Override
 	public void putString(String[] pk2) {
 
