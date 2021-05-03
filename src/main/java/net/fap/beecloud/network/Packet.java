@@ -21,41 +21,51 @@ public class Packet {
                 String[] pk2 = pk.split("\\:");
                 LoginPacket pk3 = new LoginPacket();
                 pk3.putString(pk2);
-                BeeCloud.server.send(pk3);
                 DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
                 event.call();
+                if (!event.isCancelled()) {
+                    BeeCloud.server.send(pk3);
+                }
                 return;
             } else if (pk.contains("QuitPacket"))
             {
                 String[] pk2 = pk.split("\\:");
                 QuitPacket pk3 = new QuitPacket();
                 pk3.putString(pk2);
-                BeeCloud.server.send(pk3);
                 DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
                 event.call();
+                if (!event.isCancelled()) {
+                    BeeCloud.server.send(pk3);
+                }
                 return;
             }
             else if (pk.contains("ServerUpdatePacket"))
             {
                 ServerUpdatePacket packet = new ServerUpdatePacket();
-                BeeCloud.server.send(packet);
                 DataPacketReceiveEvent event = new DataPacketReceiveEvent(packet);
                 event.call();
+                if (!event.isCancelled()) {
+                    BeeCloud.server.send(packet);
+                }
             }else if (pk.contains("ServerChatPacket"))
             {
                 String[] pk2 = pk.split("\\:");
                 ServerChatPacket pk3 = new ServerChatPacket(pk2[2],pk2[1],pk2[3]);
                 pk3.putString(pk2);
-                BeeCloud.server.send(pk3);
                 DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
                 event.call();
+                if (!event.isCancelled()) {
+                    BeeCloud.server.send(pk3);
+                }
             }else if (pk.contains("ConnectPacket"))
             {
                 String[] pk2 = pk.split("\\:");
                 ConnectPacket pk3 = new ConnectPacket(pk2[2],pk2[1],pk2[3],pk2[4],pk2[5]);
-                BeeCloud.server.send(pk3);
                 DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
                 event.call();
+                if (!event.isCancelled()) {
+                    BeeCloud.server.send(pk3);
+                }
             }else if (pk.contains("CommandPacket"))
             {
                 String[] pk2 = pk.split("\\:");
@@ -80,7 +90,9 @@ public class Packet {
                 pk3.message = pk2[2];
                 DataPacketReceiveEvent event = new DataPacketReceiveEvent(pk3);
                 event.call();
-                BeeCloud.server.send(pk3);
+                if (!event.isCancelled()) {
+                    BeeCloud.server.send(pk3);
+                }
             }
         }
         if (pk1 instanceof MovePlayerPacket)
