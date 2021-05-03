@@ -1,7 +1,7 @@
 package net.fap.beecloud.event.player;
 
 import net.fap.beecloud.SynapsePlayer;
-import net.fap.beecloud.network.mcpe.protocol.QuitPacket;
+import net.fap.beecloud.network.mcpe.protocol.DisconnectPacket;
 
 public class PlayerQuitEvent extends PlayerEvent {
 
@@ -9,8 +9,8 @@ public class PlayerQuitEvent extends PlayerEvent {
 		this.player = player.player;
 	}
 
-	public PlayerQuitEvent(QuitPacket packet) {
-		this.player = packet.getPlayer();
+	public PlayerQuitEvent(DisconnectPacket packet) {
+		this.player = packet.getPlayerName();
 	}
 
 }

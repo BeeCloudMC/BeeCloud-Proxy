@@ -1,7 +1,6 @@
 package net.fap.beecloud;
 
 import cn.hutool.core.io.FileUtil;
-import cn.nukkit.network.protocol.DataPacket;
 import lombok.Getter;
 import net.fap.beecloud.console.ServerLogger;
 import net.fap.beecloud.console.simple.*;
@@ -10,13 +9,11 @@ import net.fap.beecloud.event.EventHandler;
 import net.fap.beecloud.event.Listener;
 import net.fap.beecloud.event.server.DataPacketSendEvent;
 import net.fap.beecloud.math.BeeCloudMath;
-import net.fap.beecloud.network.Packet;
-import net.fap.beecloud.network.mcpe.protocol.BeeCloudPacket;
 import net.fap.beecloud.network.mcpe.protocol.CommandRegisterPacket;
+import net.fap.beecloud.network.mcpe.protocol.DataPacket;
 import net.fap.beecloud.plugin.PluginBase;
 import net.fap.beecloud.plugin.PluginLoader;
 import net.fap.beecloud.plugin.RegisterListener;
-import net.fap.beecloud.scheduler.Scheduler;
 import net.fap.beecloud.utils.Shutdown;
 
 import java.io.BufferedReader;
@@ -43,9 +40,6 @@ public class Server {
 	private final ServerConfigGroup configGroup;
 	@Getter
 	public ArrayList<SynapsePlayer> onlinePlayers = new ArrayList<>();
-	public ArrayList<RegisterListener> serverListeners = new ArrayList<>();
-
-	private Scheduler serverScheduler;
 
 	public Server(String workingPath) {
 		this.workingPath = workingPath;
@@ -61,21 +55,14 @@ public class Server {
 	}
 
 	public void start() {
-
-
 		ServerLogger.info("-- BeeCloud Proxy --");
-
 		instance = this;
-		serverScheduler = new Scheduler();
-
 		ServerLogger.waring("- Running your server on: " + this.getConfigGroup().getPort() + " -");
-
 		CommandHandler.registerCommand(new HelpCommand());
 		CommandHandler.registerCommand(new ListCommand());
 		CommandHandler.registerCommand(new VersionCommand());
 		CommandHandler.registerCommand(new PluginListCommand());
 		CommandHandler.registerCommand(new StopCommand());
-
 		EventHandler.setListener(new BeeCloudListener());
 
 		ServerLogger.info("- Enabling plugins... -");
@@ -134,20 +121,7 @@ public class Server {
 			ds.receive(dp);
 			String pk1 = new String(dp.getData(), 0, dp.getLength());
 			//String pk2 = new String(pk1.getBytes(ENCODING_GBK), ENCODING_GBK);
-			Packet.handlePacket(pk1);
-		}
-	}
-
-	public void send(DataPacket dataPacket) {
-		try {
-			DatagramSocket ds = new DatagramSocket();
-			byte[] bytes = dataPacket.toString().getBytes();
-			InetAddress address = InetAddress.getByName("127.0.0.1");
-			DatagramPacket dp = new DatagramPacket(bytes, bytes.length, address, this.getConfigGroup().getProxiedPort());
-			ds.send(dp);
-			ds.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+			//Packet.handlePacket(pk1);
 		}
 	}
 
@@ -155,17 +129,15 @@ public class Server {
 		return "BeeCloud";
 	}
 
-	public void send(BeeCloudPacket dataPacket) {
+	public void send(DataPacket pk) {
 		try {
-			DataPacketSendEvent event = new DataPacketSendEvent(dataPacket);
+			DataPacketSendEvent event = new DataPacketSendEvent(pk);
 			event.call();
 			if (!event.isCancelled()) {
 				DatagramSocket ds = new DatagramSocket();
-				dataPacket.resend();
-				String pk2 = new String(dataPacket.to_String().getBytes());
-				byte[] bytes = pk2.getBytes();
+				pk.encode();
 				InetAddress address = InetAddress.getByName("127.0.0.1");
-				DatagramPacket dp = new DatagramPacket(bytes, bytes.length, address, this.getConfigGroup().getProxiedPort());
+				DatagramPacket dp = new DatagramPacket(pk.getBuffer(), pk.getBuffer().length, address, this.getConfigGroup().getProxiedPort());
 				ds.send(dp);
 				ds.close();
 			}

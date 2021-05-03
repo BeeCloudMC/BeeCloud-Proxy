@@ -8,7 +8,7 @@ public class PlayerJoinEvent extends PlayerEvent {
 	protected String joinMessage;
 
 	public PlayerJoinEvent(LoginPacket packet) {
-		this.player = packet.getPlayer();
+		this.player = packet.getPlayerName();
 	}
 
 	public PlayerJoinEvent(SynapsePlayer player) {

@@ -1,10 +1,10 @@
 package net.fap.beecloud.event.server;
 
-import net.fap.beecloud.network.mcpe.protocol.BeeCloudPacket;
+import net.fap.beecloud.network.mcpe.protocol.DataPacket;
 
 public class DataPacketSendEvent extends ServerEvent {
 
-	public DataPacketSendEvent(BeeCloudPacket packet) {
+	public DataPacketSendEvent(DataPacket packet) {
 		this.packet = packet;
 	}
 

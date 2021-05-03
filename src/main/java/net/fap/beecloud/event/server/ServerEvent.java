@@ -1,14 +1,10 @@
 package net.fap.beecloud.event.server;
 
+import lombok.Getter;
 import net.fap.beecloud.event.Event;
-import net.fap.beecloud.network.mcpe.protocol.BeeCloudPacket;
+import net.fap.beecloud.network.mcpe.protocol.DataPacket;
 
 public class ServerEvent extends Event {
-
-	public BeeCloudPacket packet;
-
-	public BeeCloudPacket getPacket() {
-		return packet;
-	}
-
+	@Getter
+	public DataPacket packet;
 }

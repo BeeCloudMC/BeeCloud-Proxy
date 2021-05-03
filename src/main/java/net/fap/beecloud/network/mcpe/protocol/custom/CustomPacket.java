@@ -1,7 +1,5 @@
 package net.fap.beecloud.network.mcpe.protocol.custom;
 
-import net.fap.beecloud.network.mcpe.protocol.BeeCloudPacket;
-
 /**
  * 自定义数据包
  * 用于常规字符串交互

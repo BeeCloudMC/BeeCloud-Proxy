@@ -4,7 +4,7 @@ import net.fap.beecloud.console.ServerLogger;
 import net.fap.beecloud.event.player.PlayerJoinEvent;
 import net.fap.beecloud.event.player.PlayerQuitEvent;
 import net.fap.beecloud.network.mcpe.protocol.LoginPacket;
-import net.fap.beecloud.network.mcpe.protocol.QuitPacket;
+import net.fap.beecloud.network.mcpe.protocol.DisconnectPacket;
 import net.fap.beecloud.network.mcpe.protocol.TransferPacket;
 import net.fap.beecloud.network.mcpe.protocol.custom.CustomPacket;
 
@@ -33,17 +33,17 @@ public class SynapsePlayer {
 	public static void addPlayer(LoginPacket packet) {
 		PlayerJoinEvent event = new PlayerJoinEvent(packet);
 		event.call();
-		Server.getInstance().getOnlinePlayers().add(new SynapsePlayer(packet.getPlayer(), packet.address, packet.uuid, packet.clientID, packet.serverName));
+		Server.getInstance().getOnlinePlayers().add(new SynapsePlayer(packet.getPlayerName(), packet.address, packet.uuid, packet.clientID, packet.server));
 		if (!event.isCancelled()) {
-			ServerLogger.info(packet.getPlayer() + "[" + packet.address + "] joined the game.");
-			Client.getClient(packet.serverName).addPlayer(SynapsePlayer.getPlayer(packet.getPlayer()));
-		} else getPlayer(packet.getPlayer()).kick("§cLogin out of the synapse server");
+			ServerLogger.info(packet.getPlayerName() + "[" + packet.address + "] joined the game.");
+			Client.getClient(packet.server).addPlayer(SynapsePlayer.getPlayer(packet.getPlayerName()));
+		} else getPlayer(packet.getPlayerName()).kick("§cLogin out of the synapse server");
 	}
 
-	public static void removePlayer(QuitPacket packet) {
-		Client.getClient(SynapsePlayer.getPlayer(packet.getPlayer()).serverName).removePlayer(SynapsePlayer.getPlayer(packet.getPlayer()));
-		Server.getInstance().getOnlinePlayers().remove(getPlayer(packet.getPlayer()));
-		ServerLogger.info(packet.getPlayer() + " quited the game.");
+	public static void removePlayer(DisconnectPacket packet) {
+		Client.getClient(SynapsePlayer.getPlayer(packet.getPlayerName()).serverName).removePlayer(SynapsePlayer.getPlayer(packet.getPlayerName()));
+		Server.getInstance().getOnlinePlayers().remove(getPlayer(packet.getPlayerName()));
+		ServerLogger.info(packet.getPlayerName() + " quited the game.");
 		PlayerQuitEvent event = new PlayerQuitEvent(packet);
 		event.call();
 	}
