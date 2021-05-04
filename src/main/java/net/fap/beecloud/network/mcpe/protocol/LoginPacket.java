@@ -3,6 +3,7 @@ package net.fap.beecloud.network.mcpe.protocol;
 import lombok.Getter;
 import lombok.Setter;
 import net.fap.beecloud.network.mcpe.NetworkSessionAdapter;
+import net.fap.beecloud.network.mcpe.protocol.types.PlayerIdentityInfo;
 
 /**
  * 玩家登录数据包
@@ -12,18 +13,9 @@ import net.fap.beecloud.network.mcpe.NetworkSessionAdapter;
  */
 
 public class LoginPacket extends DataPacket {
-	@Setter
 	@Getter
-	public String address;
 	@Setter
-	@Getter
-	public String playerName;
-	@Setter
-	@Getter
-	public String uuid;
-	@Setter
-	@Getter
-	public String clientID;
+	public PlayerIdentityInfo info;
 	@Setter
 	@Getter
 	public String server;
@@ -35,19 +27,14 @@ public class LoginPacket extends DataPacket {
 
 	@Override
 	public void encodePayload() {
-		this.putString(this.getAddress());
-		this.putString(this.getPlayerName());
-		this.putString(this.getUuid());
-		this.putString(this.getClientID());
+		this.info.encode(this);
 		this.putString(this.getServer());
 	}
 
 	@Override
 	public void decodePayload() {
-		this.setAddress(this.getString());
-		this.setPlayerName(this.getString());
-		this.setUuid(this.getString());
-		this.setClientID(this.getString());
+		this.info = new PlayerIdentityInfo();
+		this.info.decode(this);
 		this.setServer(this.getString());
 	}
 

@@ -3,10 +3,8 @@ package net.fap.beecloud;
 import net.fap.beecloud.console.ServerLogger;
 import net.fap.beecloud.event.player.PlayerJoinEvent;
 import net.fap.beecloud.event.player.PlayerQuitEvent;
-import net.fap.beecloud.network.mcpe.protocol.LoginPacket;
 import net.fap.beecloud.network.mcpe.protocol.DisconnectPacket;
-import net.fap.beecloud.network.mcpe.protocol.TransferPacket;
-import net.fap.beecloud.network.mcpe.protocol.custom.CustomPacket;
+import net.fap.beecloud.network.mcpe.protocol.LoginPacket;
 
 /**
  * FillAmeaPixel Project
@@ -33,17 +31,19 @@ public class SynapsePlayer {
 	public static void addPlayer(LoginPacket packet) {
 		PlayerJoinEvent event = new PlayerJoinEvent(packet);
 		event.call();
-		Server.getInstance().getOnlinePlayers().add(new SynapsePlayer(packet.getPlayerName(), packet.address, packet.uuid, packet.clientID, packet.server));
+		Server.getInstance().getOnlinePlayers().add(new SynapsePlayer(packet.getInfo().getName(), packet.getInfo().getAddr(), packet.getInfo().getUUID(), packet.getInfo().getUUID(), packet.server));
 		if (!event.isCancelled()) {
-			ServerLogger.info(packet.getPlayerName() + "[" + packet.address + "] joined the game.");
-			Client.getClient(packet.server).addPlayer(SynapsePlayer.getPlayer(packet.getPlayerName()));
-		} else getPlayer(packet.getPlayerName()).kick("§cLogin out of the synapse server");
+			ServerLogger.info(packet.getInfo().getName() + "[" + packet.getInfo().getAddr() + "] joined the game.");
+			Client.getClient(packet.server).addPlayer(SynapsePlayer.getPlayer(packet.getInfo().getName()));
+		} else {
+			//getPlayer(packet.getInfo().getName()).kick("§cLogin out of the synapse server");
+		}
 	}
 
 	public static void removePlayer(DisconnectPacket packet) {
-		Client.getClient(SynapsePlayer.getPlayer(packet.getPlayerName()).serverName).removePlayer(SynapsePlayer.getPlayer(packet.getPlayerName()));
-		Server.getInstance().getOnlinePlayers().remove(getPlayer(packet.getPlayerName()));
-		ServerLogger.info(packet.getPlayerName() + " quited the game.");
+		Client.getClient(SynapsePlayer.getPlayer(packet.getInfo().getName()).serverName).removePlayer(SynapsePlayer.getPlayer(packet.getInfo().getName()));
+		Server.getInstance().getOnlinePlayers().remove(getPlayer(packet.getInfo().getName()));
+		ServerLogger.info(packet.getInfo().getName() + " quited the game.");
 		PlayerQuitEvent event = new PlayerQuitEvent(packet);
 		event.call();
 	}
@@ -73,53 +73,8 @@ public class SynapsePlayer {
 		return clientUUid;
 	}
 
-	public void sendMessage(String message) {
-		CustomPacket packet = new CustomPacket();
-		packet.putString(new String[]{"TextMessagePacket", this.getName(), message});
-		Server.getInstance().send(packet);
-	}
-
 	public String getServerName() {
 		return this.serverName;
 	}
 
-	public void sendTitle(String main, String sub, int fadein, int stay, int fadeout) {
-		CustomPacket packet = new CustomPacket();
-		packet.putString(new String[]{"TextTitlePacket", this.getName(), main + ":" + sub + ":" + fadein + ":" + stay + ":" + fadeout});
-		Server.getInstance().send(packet);
-	}
-
-	public void sendTitle(String main, String sub) {
-		CustomPacket packet = new CustomPacket();
-		packet.putString(new String[]{"TextTitlePacket", this.getName(), main + ":" + sub});
-		Server.getInstance().send(packet);
-	}
-
-	public void sendTip(String message) {
-		CustomPacket packet = new CustomPacket();
-		packet.putString(new String[]{"TextTipPacket", this.getName(), message});
-		Server.getInstance().send(packet);
-	}
-
-	public void kick(String reason) {
-		CustomPacket packet = new CustomPacket();
-		packet.putString(new String[]{"KickPlayerPacket", this.getName(), reason});
-		Server.getInstance().send(packet);
-	}
-
-	public void kick() {
-		CustomPacket packet = new CustomPacket();
-		packet.putString(new String[]{"KickPlayerPacket", this.getName(), "Kicked by admin"});
-		Server.getInstance().send(packet);
-	}
-
-	public void sendPacket(String packetName, String packetV) {
-		CustomPacket packet = new CustomPacket();
-		packet.putString(new String[]{packetName, this.getName(), packetV});
-	}
-
-	public void transferPlayer(Client client) {
-		TransferPacket packet = new TransferPacket(this, client);
-		Server.getInstance().send(packet);
-	}
 }

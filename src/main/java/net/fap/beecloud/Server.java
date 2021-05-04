@@ -9,7 +9,7 @@ import net.fap.beecloud.event.EventHandler;
 import net.fap.beecloud.event.Listener;
 import net.fap.beecloud.event.server.DataPacketSendEvent;
 import net.fap.beecloud.math.BeeCloudMath;
-import net.fap.beecloud.network.mcpe.protocol.CommandRegisterPacket;
+import net.fap.beecloud.network.TCPServer;
 import net.fap.beecloud.network.mcpe.protocol.DataPacket;
 import net.fap.beecloud.plugin.PluginBase;
 import net.fap.beecloud.plugin.PluginLoader;
@@ -40,6 +40,8 @@ public class Server {
 	private final ServerConfigGroup configGroup;
 	@Getter
 	public ArrayList<SynapsePlayer> onlinePlayers = new ArrayList<>();
+	@Getter
+	public TCPServer server;
 
 	public Server(String workingPath) {
 		this.workingPath = workingPath;
@@ -54,7 +56,7 @@ public class Server {
 		this.configGroup = new ServerConfigGroup(cfg);
 	}
 
-	public void start() {
+	public void start() throws InterruptedException {
 		ServerLogger.info("-- BeeCloud Proxy --");
 		instance = this;
 		ServerLogger.waring("- Running your server on: " + this.getConfigGroup().getPort() + " -");
@@ -69,40 +71,38 @@ public class Server {
 		PluginLoader.loadPlugin(this);
 
 		Shutdown.shutdownTask();
-
+		this.server = new TCPServer(this.getConfigGroup().getPort() + 2);
+		this.server.start();
 		ServerLogger.info("- Done! For help type /help");
 
+		fuckingThread();
+	}
+
+	private void fuckingThread() {
 		try {
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						titleTick();
-						receive();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+			new Thread(() -> {
+				try {
+					titleTick();
+					receive();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}).start();
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						while (true) {
-							BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-							String commandStr = null;
-							while ((commandStr = br.readLine()) != null)
-								CommandHandler.handleCommand(commandStr, "CONSOLE");
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
+			new Thread(() -> {
+				try {
+					while (true) {
+						BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+						String commandStr = null;
+						while ((commandStr = br.readLine()) != null)
+							CommandHandler.handleCommand(commandStr, "CONSOLE");
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}).start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void registerListeners(PluginBase plugin, Listener listener) {
@@ -148,13 +148,6 @@ public class Server {
 
 	public void registerCommand(CommandHandler commandHandler) {
 		CommandHandler.registerCommand(commandHandler);
-	}
-
-	public void registerNukkitCommand(CommandHandler commandHandler) {
-		CommandHandler.registerCommand(commandHandler);
-		CommandRegisterPacket pk = new CommandRegisterPacket(commandHandler.commandStr, commandHandler.commandUsage);
-		CommandHandler.customCommandPacketList.add(pk);
-		send(pk);
 	}
 
 	public File getPluginFile() {

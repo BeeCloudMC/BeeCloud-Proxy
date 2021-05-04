@@ -12,7 +12,7 @@ public class RegisterListener {
 	public RegisterListener(PluginBase plugin, Listener listener) {
 		this.plugin = plugin;
 		this.listener = listener;
-		Server.getInstance().serverListeners.add(this);
+		//Server.getInstance().get.add(this);
 	}
 
 	public Listener getListener() {

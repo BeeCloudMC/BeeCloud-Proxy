@@ -10,7 +10,7 @@ public class PlayerQuitEvent extends PlayerEvent {
 	}
 
 	public PlayerQuitEvent(DisconnectPacket packet) {
-		this.player = packet.getPlayerName();
+		this.player = packet.getInfo().getName();
 	}
 
 }

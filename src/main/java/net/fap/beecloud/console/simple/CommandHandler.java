@@ -2,7 +2,6 @@ package net.fap.beecloud.console.simple;
 
 import net.fap.beecloud.SynapsePlayer;
 import net.fap.beecloud.console.ServerLogger;
-import net.fap.beecloud.network.mcpe.protocol.CommandRegisterPacket;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +9,7 @@ import java.util.HashMap;
 public class CommandHandler {
 
 	public static HashMap<String, CommandHandler> commandMap = new HashMap<>();
-	public static ArrayList<CommandRegisterPacket> customCommandPacketList = new ArrayList<>();
+	//public static ArrayList<CommandRegisterPacket> customCommandPacketList = new ArrayList<>();
 
 	public String commandStr;
 	public String commandUsage;
@@ -28,7 +27,7 @@ public class CommandHandler {
 	public static void handleCommand(String command, String[] commandArgs, String commandSender) {
 		if (command.length() > 0 && commandMap.containsKey(command))
 			commandMap.get(command).runCommand(commandArgs, commandSender);
-		else SynapsePlayer.getPlayer(commandSender).sendMessage("Unknown command! type help for help.");
+		//else SynapsePlayer.getPlayer(commandSender).sendMessage("Unknown command! type help for help.");
 	}
 
 	public void setCommandStr(String commandStr, String commandUsage) {

@@ -27,8 +27,7 @@ public class Event {
 
 	public void call() {
 		EventHandler.getListener().call(this);
-		for (RegisterListener listener : Server.getInstance().serverListeners)
-			listener.getListener().call(this);
+
 	}
 
 	public boolean isCancelled() {

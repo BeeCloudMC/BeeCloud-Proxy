@@ -2,8 +2,8 @@ package net.fap.beecloud.network.mcpe.protocol;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.fap.beecloud.SynapsePlayer;
 import net.fap.beecloud.network.mcpe.NetworkSessionAdapter;
+import net.fap.beecloud.network.mcpe.protocol.types.PlayerIdentityInfo;
 
 /**
  * 玩家退出数据包
@@ -15,7 +15,10 @@ import net.fap.beecloud.network.mcpe.NetworkSessionAdapter;
 public class DisconnectPacket extends DataPacket {
 	@Getter
 	@Setter
-	public String playerName;
+	public PlayerIdentityInfo info;
+	@Getter
+	@Setter
+	public String reason;
 
 	@Override
 	public void handle(NetworkSessionAdapter adapter) {
@@ -24,12 +27,15 @@ public class DisconnectPacket extends DataPacket {
 
 	@Override
 	public void encodePayload() {
-		this.putString(this.getPlayerName());
+		this.info.encode(this);
+		this.putString(this.reason);
 	}
 
 	@Override
 	public void decodeHeader() {
-		this.setPlayerName(this.getString());
+		this.info = new PlayerIdentityInfo();
+		this.info.decode(this);
+		this.putString(this.reason);
 	}
 
 	@Override

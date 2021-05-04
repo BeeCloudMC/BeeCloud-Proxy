@@ -3,7 +3,6 @@ package net.fap.beecloud;
 import net.fap.beecloud.console.ServerLogger;
 import net.fap.beecloud.console.simple.CommandHandler;
 import net.fap.beecloud.event.synapse.ClientConnectEvent;
-import net.fap.beecloud.network.mcpe.protocol.CommandRegisterPacket;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,8 +34,6 @@ public class Client {
 			ServerLogger.info("Client server connect proxy successfully!");
 			ServerLogger.info("ServerName: " + client.getServerName() + " Port: " + client.getServerPort());
 			ServerLogger.info("LobbyServer: " + client.isLobbyServer + " TransferOnShutdown: " + client.transferOnShutdown);
-			for (CommandRegisterPacket pk : CommandHandler.customCommandPacketList)
-				Server.getInstance().send(pk);
 		}
 	}
 
