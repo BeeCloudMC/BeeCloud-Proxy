@@ -11,8 +11,7 @@ public class PluginEvent extends Event {
         return plugin;
     }
 
-    public String getPluginName()
-    {
+    public String getPluginName() {
         return plugin.getName();
     }
 

@@ -18,8 +18,7 @@ public class Permission {
     public ArrayList<String> permissionList;
     public SynapsePlayer player;
 
-    public Permission(SynapsePlayer player)
-    {
+    public Permission(SynapsePlayer player) {
         this.player = player;
     }
 

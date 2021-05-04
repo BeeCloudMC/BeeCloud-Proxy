@@ -14,37 +14,47 @@ public class Scheduler {
 
     /**
      * 延时计时器
-     * @param task PluginTask
+     *
+     * @param task  PluginTask
      * @param delay 延时(ms)
      */
-    public void schedulerTask(Task task, long delay)
-    {
+    public void schedulerTask(Task task, long delay) {
         Timer timer = new Timer();
-        timer.schedule(task,delay);
+        timer.schedule(task, delay);
     }
 
     /**
      * 循环计时器
-     * @param task PluginTask
+     *
+     * @param task  PluginTask
      * @param delay 循环间隔(ms)
      */
-    public void schedulerDelayedTask(Task task, long delay)
-    {
+    public void schedulerDelayedTask(Task task, long delay) {
         Date date = new Date();
         Timer timer = new Timer();
-        timer.schedule(task,date,delay);
+        timer.schedule(task, date, delay);
     }
 
     /**
      * 延时循环计时器
-     * @param task PluginTask
-     * @param delay 延时(ms)
+     *
+     * @param task   PluginTask
+     * @param delay  延时(ms)
      * @param period 循环间隔(ms)
      */
-    public void schedulerRepeatingTask(Task task, long delay, long period)
-    {
+    public void schedulerRepeatingTask(Task task, long delay, long period) {
         Timer timer = new Timer();
-        timer.schedule(task,delay,period);
+        timer.schedule(task, delay, period);
     }
 
+    /**
+     * 队列任务
+     *
+     * @param runnable 任务
+     * @param delay    延时
+     */
+    public void schedulerRunnableTask(Runnable runnable, long delay) {
+        TaskHandler message = new TaskHandler(runnable, delay);
+        TaskManager.addMessage(message);
+    }
 }

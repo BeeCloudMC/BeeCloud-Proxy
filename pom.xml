@@ -10,10 +10,6 @@
 
     <repositories>
         <repository>
-            <id>nukkitx-repo-snapshot</id>
-            <url>https://repo.nukkitx.com/maven-snapshots/</url>
-        </repository>
-        <repository>
             <id>dom4j</id>
             <url>https://mvnrepository.com/artifact/dom4j/dom4j</url>
         </repository>
@@ -21,15 +17,17 @@
             <id>jansi</id>
             <url>https://mvnrepository.com/artifact/org.fusesource.jansi/jansi</url>
         </repository>
+        <repository>
+            <id>netty</id>
+            <url>https://mvnrepository.com/artifact/io.netty/netty-all</url>
+        </repository>
+        <repository>
+            <id>commons</id>
+            <url>https://mvnrepository.com/artifact/commons-lang/commons-lang</url>
+        </repository>
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.nukkit</groupId>
-            <artifactId>nukkit</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
@@ -39,6 +37,18 @@
             <groupId>org.fusesource.jansi</groupId>
             <artifactId>jansi</artifactId>
             <version>2.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>5.0.0.Alpha2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
         </dependency>
 
     </dependencies>

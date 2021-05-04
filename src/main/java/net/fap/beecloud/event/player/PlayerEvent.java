@@ -4,7 +4,8 @@ import net.fap.beecloud.event.Event;
 
 public class PlayerEvent extends Event {
 
-    public PlayerEvent() {}
+    public PlayerEvent() {
+    }
 
     public String player;
 

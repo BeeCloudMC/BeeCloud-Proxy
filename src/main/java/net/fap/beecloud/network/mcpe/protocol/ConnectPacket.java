@@ -19,27 +19,23 @@ public class ConnectPacket extends BeeCloudPacket {
     private String isLobbyServer;
     private String transferOnShutdown;
 
-    public ConnectPacket(String serverName, String password, String serverPort, String isLobbyServer, String transferOnShutdown)
-    {
+    public ConnectPacket(String serverName, String password, String serverPort, String isLobbyServer, String transferOnShutdown) {
         this.password = password;
-        if (this.password.equals(Server.getServer().clientPassword)&&!Client.allClientServer.containsKey(serverName))
-        {
+        if (this.password.equals(Server.getServer().clientPassword) && !Client.allClientServer.containsKey(serverName)) {
             this.serverName = serverName;
             this.port = serverPort;
             this.isLobbyServer = isLobbyServer;
             this.transferOnShutdown = transferOnShutdown;
-            this.client = new Client(this.serverName,this.password,this.port,this.isLobbyServer,this.transferOnShutdown);
+            this.client = new Client(this.serverName, this.password, this.port, this.isLobbyServer, this.transferOnShutdown);
             Client.registerClients(client);
         }
     }
 
-    public boolean isLobbyServer()
-    {
+    public boolean isLobbyServer() {
         return Boolean.valueOf(this.isLobbyServer);
     }
 
-    public Client getClient()
-    {
+    public Client getClient() {
         return this.client;
     }
 
@@ -66,7 +62,7 @@ public class ConnectPacket extends BeeCloudPacket {
 
     @Override
     public String to_String() {
-        if (this.password.equals(Server.getServer().clientPassword)&&!Client.allClientServer.containsKey(serverName))
+        if (this.password.equals(Server.getServer().clientPassword) && !Client.allClientServer.containsKey(serverName))
             return "ConnectPacket:SUCCESS";
         else
             return "ConnectPacket:FAILED";

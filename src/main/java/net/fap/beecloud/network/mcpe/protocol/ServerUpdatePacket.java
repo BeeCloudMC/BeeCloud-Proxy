@@ -24,6 +24,6 @@ public class ServerUpdatePacket extends BeeCloudPacket {
 
     @Override
     public String to_String() {
-        return "ServerUpdatePacket:"+count;
+        return "ServerUpdatePacket:" + count;
     }
 }

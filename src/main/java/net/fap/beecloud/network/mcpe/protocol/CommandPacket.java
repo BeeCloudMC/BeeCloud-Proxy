@@ -16,30 +16,26 @@ public class CommandPacket extends BeeCloudPacket {
     private String commandSender;
     private String commandArgs[];
 
-    public CommandPacket(String commandMessage, String commandSender, String commandArgs[])
-    {
+    public CommandPacket(String commandMessage, String commandSender, String commandArgs[]) {
         this.commandMessage = commandMessage;
         this.commandSender = commandSender;
         this.commandArgs = commandArgs;
-        String str1 = commandMessage.replace("/","");
+        String str1 = commandMessage.replace("/", "");
         String[] array1 = str1.split("\\s+");
-        String message = str1.replace(array1[0],"");
+        String message = str1.replace(array1[0], "");
         String[] array2 = message.split("\\:");
-        CommandHandler.handleCommand(array1[0],array2,commandSender);
+        CommandHandler.handleCommand(array1[0], array2, commandSender);
     }
 
-    public SynapsePlayer getCommandSender()
-    {
+    public SynapsePlayer getCommandSender() {
         return SynapsePlayer.getPlayer(commandSender);
     }
 
-    public String getCommandMessage()
-    {
+    public String getCommandMessage() {
         return this.commandMessage;
     }
 
-    public String[] getCommandArgs()
-    {
+    public String[] getCommandArgs() {
         return this.commandArgs;
     }
 
@@ -52,11 +48,11 @@ public class CommandPacket extends BeeCloudPacket {
     public void putString(String[] pk2) {
         this.commandSender = pk2[1];
         this.commandMessage = pk2[2];
-        this.commandArgs = commandMessage.replace("/","").split("\\s+");
+        this.commandArgs = commandMessage.replace("/", "").split("\\s+");
     }
 
     @Override
     public String to_String() {
-        return "CommandPacket:"+commandSender+":"+commandMessage;
+        return "CommandPacket:" + commandSender + ":" + commandMessage;
     }
 }

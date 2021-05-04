@@ -10,7 +10,7 @@ import net.fap.beecloud.SynapsePlayer;
  * @author catrainbow
  */
 
-public class InventoryPacket extends BeeCloudPacket{
+public class InventoryPacket extends BeeCloudPacket {
 
     private int[] item = new int[36];
     private int[] count = new int[36];
@@ -18,8 +18,7 @@ public class InventoryPacket extends BeeCloudPacket{
     private String player;
     private String info;
 
-    public InventoryPacket(String packet)
-    {
+    public InventoryPacket(String packet) {
         this.info = packet;
     }
 
@@ -45,24 +44,23 @@ public class InventoryPacket extends BeeCloudPacket{
         return item;
     }
 
-    public int[] getCount(){
+    public int[] getCount() {
         return count;
     }
 
-    public String[] getName()
-    {
+    public String[] getName() {
         return name;
     }
 
     @Override
     public void putString(String[] pk2) {
         this.player = pk2[1];
-        for (int i=2; i<37; i++)
-            item[i]=Integer.valueOf(pk2[i]);
-        for (int i=37; i<72; i++)
-            count[i]=Integer.valueOf(pk2[i]);
-        for (int i=72; i<107; i++)
-            name[i]=String.valueOf(pk2[i]);
+        for (int i = 2; i < 37; i++)
+            item[i] = Integer.valueOf(pk2[i]);
+        for (int i = 37; i < 72; i++)
+            count[i] = Integer.valueOf(pk2[i]);
+        for (int i = 72; i < 107; i++)
+            name[i] = String.valueOf(pk2[i]);
     }
 
 }

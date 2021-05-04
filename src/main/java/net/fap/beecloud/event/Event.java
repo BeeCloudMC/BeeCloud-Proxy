@@ -14,10 +14,10 @@ public class Event {
     protected String eventName = null;
     private boolean isCancelled = false;
 
-    public Event() {}
+    public Event() {
+    }
 
-    public String getEventName()
-    {
+    public String getEventName() {
         return this.eventName == null ? this.getClass().getName() : this.eventName;
     }
 
@@ -25,15 +25,13 @@ public class Event {
         this.isCancelled = true;
     }
 
-    public void call()
-    {
+    public void call() {
         EventHandler.getListener().call(this);
         for (RegisterListener listener : Server.getServer().serverListeners)
             listener.getListener().call(this);
     }
 
-    public boolean isCancelled()
-    {
+    public boolean isCancelled() {
         return this.isCancelled;
     }
 

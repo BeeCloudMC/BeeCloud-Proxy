@@ -21,42 +21,35 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-public class XMLParser
-{
-    public static List<PluginBase> getPluginList() throws DocumentException
-    {
+public class XMLParser {
+    public static List<PluginBase> getPluginList() throws DocumentException {
         List<PluginBase> list = new ArrayList<>();
 
         String[] file = Server.getServer().getPluginFile().list();
-        for (int i=0; i<file.length; i++)
-        {
+        for (int i = 0; i < file.length; i++) {
             String fileName = file[i];
-            if (fileName.substring(fileName.lastIndexOf(".")+1).equals("jar"))
-            {
+            if (fileName.substring(fileName.lastIndexOf(".") + 1).equals("jar")) {
                 try {
                     String name = null;
                     String main = null;
-                    String jar = Server.getServer().getPluginFile()+File.separator+fileName;
-                    List<List<String>> pluginYml = readZipFile(Server.getServer().getPluginFile()+File.separator+fileName);
+                    String jar = Server.getServer().getPluginFile() + File.separator + fileName;
+                    List<List<String>> pluginYml = readZipFile(Server.getServer().getPluginFile() + File.separator + fileName);
                     for (List<String> list1 : pluginYml)
-                        for (String str:list1)
-                        {
-                            if (str.contains("name")) name = getPluginInfo(str,"name");
-                            else if (str.contains("main")) main = getPluginInfo(str,"main");
+                        for (String str : list1) {
+                            if (str.contains("name")) name = getPluginInfo(str, "name");
+                            else if (str.contains("main")) main = getPluginInfo(str, "main");
                         }
-                   if (name!=null&&main!=null)
-                   {
-                       PluginBase plugin = new PluginBase();
-                       plugin.setName(name);
-                       plugin.setJar(jar);
-                       plugin.setClassName(main);
-                       plugin.setPluginLogger(new PluginLogger());
-                       list.add(plugin);
-                       plugin.getLogger().setPluginBase(plugin);
-                   }
+                    if (name != null && main != null) {
+                        PluginBase plugin = new PluginBase();
+                        plugin.setName(name);
+                        plugin.setJar(jar);
+                        plugin.setClassName(main);
+                        plugin.setPluginLogger(new PluginLogger());
+                        list.add(plugin);
+                        plugin.getLogger().setPluginBase(plugin);
+                    }
 
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -65,17 +58,15 @@ public class XMLParser
         return list;
     }
 
-    private static String getPluginInfo(String line, String target)
-    {
-        if (line.contains(target))
-        {
+    private static String getPluginInfo(String line, String target) {
+        if (line.contains(target)) {
             String[] strings = line.split("\\:");
             return strings[1];
-        }else return null;
+        } else return null;
     }
 
     //读取zip文件内的文件,返回文件名称列表
-    public static List<String> readZipFileName(String path){
+    public static List<String> readZipFileName(String path) {
         List<String> list = new ArrayList<>();
         try {
             ZipFile zipFile = new ZipFile(path);
@@ -90,22 +81,22 @@ public class XMLParser
     }
 
     //读取zip文件内的文件,返回文件内容列表
-    public static List<List<String>> readZipFile(String path){
+    public static List<List<String>> readZipFile(String path) {
         List<String> list = new ArrayList<>();
-        List<List<String>> ddlList=null;
+        List<List<String>> ddlList = null;
         try {
             JarFile zipFile = new JarFile(path);
             InputStream in = new BufferedInputStream(new FileInputStream(path));
             JarInputStream zin = new JarInputStream(in);
             ZipEntry ze;
             while ((ze = zin.getNextEntry()) != null) {
-                ddlList=new ArrayList<>();
+                ddlList = new ArrayList<>();
                 if (ze.isDirectory()) {
-                }else{
+                } else {
                     //System.err.println("file - " + ze.getName() + " : "+ ze.getSize() + " bytes");
                     long size = ze.getSize();
                     if (size > 0) {
-                        BufferedReader br = new BufferedReader(new InputStreamReader(zipFile.getInputStream(ze),Charset.forName("utf-8")));
+                        BufferedReader br = new BufferedReader(new InputStreamReader(zipFile.getInputStream(ze), Charset.forName("utf-8")));
                         String line;
                         while ((line = br.readLine()) != null) {
                             String[] index = line.split(",");

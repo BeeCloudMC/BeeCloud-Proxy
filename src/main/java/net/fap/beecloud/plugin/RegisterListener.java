@@ -9,15 +9,13 @@ public class RegisterListener {
     private Listener listener;
     private PluginBase plugin;
 
-    public RegisterListener(PluginBase plugin, Listener listener)
-    {
+    public RegisterListener(PluginBase plugin, Listener listener) {
         this.plugin = plugin;
         this.listener = listener;
         Server.getServer().serverListeners.add(this);
     }
 
-    public Listener getListener()
-    {
+    public Listener getListener() {
         return this.listener;
     }
 
@@ -25,8 +23,7 @@ public class RegisterListener {
         return plugin;
     }
 
-    public void callEvent(Event event)
-    {
+    public void callEvent(Event event) {
         listener.call(event);
     }
 

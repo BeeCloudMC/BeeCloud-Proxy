@@ -7,8 +7,7 @@ public class PlayerCommandEvent extends PlayerEvent {
     private String commandStr;
     private String message;
 
-    public PlayerCommandEvent(SynapsePlayer player, String commandStr, String commandMessage)
-    {
+    public PlayerCommandEvent(SynapsePlayer player, String commandStr, String commandMessage) {
         this.player = player.getName();
         this.commandStr = commandStr;
         this.message = commandMessage;

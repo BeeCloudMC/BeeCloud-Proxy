@@ -9,7 +9,7 @@ import net.fap.beecloud.SynapsePlayer;
  * @author catrainbow
  */
 
-public class QuitPacket extends BeeCloudPacket{
+public class QuitPacket extends BeeCloudPacket {
 
     public String player;
 
@@ -29,6 +29,6 @@ public class QuitPacket extends BeeCloudPacket{
 
     @Override
     public String to_String() {
-        return "QuitPacket:"+player;
+        return "QuitPacket:" + player;
     }
 }

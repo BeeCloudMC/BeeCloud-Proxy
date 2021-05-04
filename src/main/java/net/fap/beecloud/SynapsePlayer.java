@@ -13,6 +13,7 @@ import net.fap.beecloud.permission.Permission;
 /**
  * FillAmeaPixel Project
  * BeeCloud Server
+ *
  * @author catrainbow
  */
 
@@ -23,15 +24,15 @@ public class SynapsePlayer {
     public String clientUUid;
     public String clientID;
     public String player;
-    public String address;;
+    public String address;
+    ;
     public String serverName;
     public String defaultPermission;
 
     private Permission permission;
     private PlayerInventory inventory;
 
-    public SynapsePlayer(String player, String address, String clientUUId, String clientID, String serverName,String permission)
-    {
+    public SynapsePlayer(String player, String address, String clientUUId, String clientID, String serverName, String permission) {
         this.clientUUid = clientUUId;
         this.clientID = clientID;
         this.player = player;
@@ -41,13 +42,11 @@ public class SynapsePlayer {
         this.permission = new Permission(this);
     }
 
-    public String getName()
-    {
+    public String getName() {
         return this.player;
     }
 
-    public String getAddress()
-    {
+    public String getAddress() {
         return this.address;
     }
 
@@ -59,76 +58,66 @@ public class SynapsePlayer {
         return clientUUid;
     }
 
-    public void sendMessage(String message)
-    {
+    public void sendMessage(String message) {
         CustomPacket packet = new CustomPacket();
-        packet.putString(new String[]{"TextMessagePacket",this.getName(),message});
-        Server.getServer().send(packet);
+        packet.putString(new String[]{"TextMessagePacket", this.getName(), message});
+        //Server.getServer().send(packet);
     }
 
-    public String getServerName()
-    {
+    public String getServerName() {
         return this.serverName;
     }
 
-    public void sendTitle(String main, String sub,int fadein, int stay, int fadeout)
-    {
+    public void sendTitle(String main, String sub, int fadein, int stay, int fadeout) {
         CustomPacket packet = new CustomPacket();
-        packet.putString(new String[]{"TextTitlePacket",this.getName(),main+":"+sub+":"+fadein+":"+stay+":"+fadeout});
-        Server.getServer().send(packet);
+        packet.putString(new String[]{"TextTitlePacket", this.getName(), main + ":" + sub + ":" + fadein + ":" + stay + ":" + fadeout});
+        //Server.getServer().send(packet);
     }
 
-    public void sendTitle(String main, String sub)
-    {
+    public void sendTitle(String main, String sub) {
         CustomPacket packet = new CustomPacket();
-        packet.putString(new String[]{"TextTitlePacket",this.getName(),main+":"+sub});
-        Server.getServer().send(packet);
+        packet.putString(new String[]{"TextTitlePacket", this.getName(), main + ":" + sub});
+        //Server.getServer().send(packet);
     }
 
-    public void sendTip(String message)
-    {
+    public void sendTip(String message) {
         CustomPacket packet = new CustomPacket();
-        packet.putString(new String[]{"TextTipPacket",this.getName(),message});
-        Server.getServer().send(packet);
+        packet.putString(new String[]{"TextTipPacket", this.getName(), message});
+        //Server.getServer().send(packet);
     }
 
-    public void kick(String reason)
-    {
+    public void kick(String reason) {
         CustomPacket packet = new CustomPacket();
-        packet.putString(new String[]{"KickPlayerPacket",this.getName(),reason});
-        Server.getServer().send(packet);
+        packet.putString(new String[]{"KickPlayerPacket", this.getName(), reason});
+        //Server.getServer().send(packet);
     }
 
-    public void kick()
-    {
+    public void kick() {
         CustomPacket packet = new CustomPacket();
-        packet.putString(new String[]{"KickPlayerPacket",this.getName(),"Kicked by admin"});
-        Server.getServer().send(packet);
+        packet.putString(new String[]{"KickPlayerPacket", this.getName(), "Kicked by admin"});
+        //Server.getServer().send(packet);
     }
 
-    public void sendPacket(String packetName, String packetV)
-    {
+    public void sendPacket(String packetName, String packetV) {
         CustomPacket packet = new CustomPacket();
-        packet.putString(new String[]{packetName,this.getName(),packetV});
+        packet.putString(new String[]{packetName, this.getName(), packetV});
     }
 
-    public static void addPlayer(LoginPacket packet)
-    {
+    public static void addPlayer(LoginPacket packet) {
         PlayerJoinEvent event = new PlayerJoinEvent(packet);
         event.call();
-        Server.onLinePlayerList.add(new SynapsePlayer(packet.getPlayer(), packet.address, packet.uuid, packet.clientID,packet.serverName,packet.permission));
+        Server.onLinePlayerList.add(new SynapsePlayer(packet.getPlayer(), packet.address, packet.uuid, packet.clientID, packet.serverName, packet.permission));
         if (!event.isCancelled()) {
             ServerLogger.info(packet.getPlayer() + "[" + packet.address + "] joined the game.");
             Client.getClient(packet.serverName).addPlayer(SynapsePlayer.getPlayer(packet.getPlayer()));
             SynapsePlayer.getPlayer(packet.getPlayer()).inventory = new PlayerInventory(SynapsePlayer.getPlayer(packet.getPlayer()));
-        }else getPlayer(packet.getPlayer()).kick("§cLogin out of the synapse server");
+        } else getPlayer(packet.getPlayer()).kick("§cLogin out of the synapse server");
     }
 
-    public static void removePlayer(QuitPacket packet)
-    {
+    public static void removePlayer(QuitPacket packet) {
         Client.getClient(SynapsePlayer.getPlayer(packet.getPlayer()).serverName).removePlayer(SynapsePlayer.getPlayer(packet.getPlayer()));
         Server.onLinePlayerList.remove(getPlayer(packet.getPlayer()));
-        ServerLogger.info(packet.getPlayer()+" quited the game.");
+        ServerLogger.info(packet.getPlayer() + " quited the game.");
         PlayerQuitEvent event = new PlayerQuitEvent(packet);
         event.call();
     }
@@ -140,39 +129,32 @@ public class SynapsePlayer {
         return null;
     }
 
-    public void transferPlayer(Client client)
-    {
-        TransferPacket packet = new TransferPacket(this,client);
-        Server.getServer().send(packet);
+    public void transferPlayer(Client client) {
+        TransferPacket packet = new TransferPacket(this, client);
+        //Server.getServer().send(packet);
     }
 
-    public Permission getPermission()
-    {
+    public Permission getPermission() {
         return this.permission;
     }
 
-    public void addPermission(String permission)
-    {
+    public void addPermission(String permission) {
         this.permission.permissionList.add(permission);
     }
 
-    public boolean hasPermission(String permission)
-    {
+    public boolean hasPermission(String permission) {
         return this.permission.permissionList.contains(permission);
     }
 
-    public boolean isPlayer()
-    {
+    public boolean isPlayer() {
         return true;
     }
 
-    public boolean isOp()
-    {
+    public boolean isOp() {
         return this.defaultPermission.equals(Permission.DEFAULT_OP);
     }
 
-    public PlayerInventory getInventory()
-    {
+    public PlayerInventory getInventory() {
         return this.inventory;
     }
 

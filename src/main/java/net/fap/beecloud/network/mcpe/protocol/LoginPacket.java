@@ -9,7 +9,7 @@ import net.fap.beecloud.SynapsePlayer;
  * @author catrainbow
  */
 
-public class LoginPacket extends BeeCloudPacket{
+public class LoginPacket extends BeeCloudPacket {
 
     public String player;
 
@@ -24,8 +24,7 @@ public class LoginPacket extends BeeCloudPacket{
     public String permission;
 
     @Override
-    public void putString(String[] pk2)
-    {
+    public void putString(String[] pk2) {
         this.player = pk2[1];
         this.address = pk2[2];
         this.uuid = pk2[3];
@@ -34,8 +33,7 @@ public class LoginPacket extends BeeCloudPacket{
         this.permission = pk2[6];
     }
 
-    public String getPlayer()
-    {
+    public String getPlayer() {
         return this.player;
     }
 
@@ -46,6 +44,6 @@ public class LoginPacket extends BeeCloudPacket{
 
     @Override
     public String to_String() {
-        return "LoginPacket:"+player+":"+address+":"+uuid+":"+clientID+":"+serverName;
+        return "LoginPacket:" + player + ":" + address + ":" + uuid + ":" + clientID + ":" + serverName;
     }
 }

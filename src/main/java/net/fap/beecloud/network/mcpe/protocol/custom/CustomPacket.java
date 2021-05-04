@@ -30,13 +30,12 @@ public class CustomPacket extends BeeCloudPacket {
         this.message = pk2[2];
     }
 
-    public String[] getPacketCode()
-    {
+    public String[] getPacketCode() {
         return message.split("\\:");
     }
 
     @Override
     public String to_String() {
-        return packetName+":"+player+":"+message;
+        return packetName + ":" + player + ":" + message;
     }
 }

@@ -9,8 +9,7 @@ package net.fap.beecloud.event;
 public class BeeCloudListener implements Listener {
 
     @Override
-    public void call(Event event)
-    {
+    public void call(Event event) {
         /**
          * Event handler
          * 当一个事件发生时，监听器就会自动捕捉到事件

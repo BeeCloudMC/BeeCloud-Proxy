@@ -6,15 +6,13 @@ public class Item {
     private int count;
     private String name;
 
-    public Item(int id, Integer meta, int count, String name)
-    {
+    public Item(int id, Integer meta, int count, String name) {
         this.id = id;
         this.count = count;
         this.name = name;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return this.id;
     }
 

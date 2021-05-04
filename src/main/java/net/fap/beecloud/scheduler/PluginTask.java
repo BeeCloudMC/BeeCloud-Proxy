@@ -8,16 +8,16 @@ import net.fap.beecloud.plugin.PluginBase;
  * @author catrainbow
  */
 
-public class PluginTask extends Task{
+public class PluginTask extends Task {
 
     private PluginBase plugin;
 
     /**
      * 构造方法
+     *
      * @param owner 任务的所有者
      */
-    public PluginTask(PluginBase owner)
-    {
+    public PluginTask(PluginBase owner) {
         this.plugin = owner;
     }
 
@@ -28,6 +28,7 @@ public class PluginTask extends Task{
 
     /**
      * 返回任务所有者
+     *
      * @return Plugin Owner
      */
     public PluginBase getPlugin() {

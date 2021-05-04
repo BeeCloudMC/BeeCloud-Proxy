@@ -17,8 +17,7 @@ public class TransferPacket extends BeeCloudPacket {
     private String serverName;
     private String port;
 
-    public TransferPacket(SynapsePlayer player , Client target)
-    {
+    public TransferPacket(SynapsePlayer player, Client target) {
         this.player = player.getName();
         this.serverName = target.getServerName();
         this.port = target.getServerPort();
@@ -34,12 +33,12 @@ public class TransferPacket extends BeeCloudPacket {
 
     @Override
     public void resend() {
-        ServerLogger.info(player+" has transfer to "+serverName);
+        ServerLogger.info(player + " has transfer to " + serverName);
         super.resend();
     }
 
     @Override
     public String to_String() {
-        return "TransferPacket:"+serverName+":"+player+":"+port;
+        return "TransferPacket:" + serverName + ":" + player + ":" + port;
     }
 }

@@ -7,8 +7,7 @@ public class SynapseEvent extends Event {
 
     public Client client;
 
-    public Client getClient()
-    {
+    public Client getClient() {
         return this.client;
     }
 

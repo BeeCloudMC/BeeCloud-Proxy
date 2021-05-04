@@ -16,13 +16,11 @@ public class PluginBase {
 
     private PluginLogger pluginLogger;
 
-    public Server getServer()
-    {
+    public Server getServer() {
         return Server.getServer();
     }
 
-    public PluginLogger getLogger()
-    {
+    public PluginLogger getLogger() {
         return this.pluginLogger;
     }
 
@@ -38,8 +36,7 @@ public class PluginBase {
         this.name = name;
     }
 
-    public void setPluginLogger(PluginLogger logger)
-    {
+    public void setPluginLogger(PluginLogger logger) {
         this.pluginLogger = logger;
     }
 

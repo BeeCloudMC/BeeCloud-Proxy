@@ -11,8 +11,7 @@ public class CommandRegisterPacket extends BeeCloudPacket {
     private String commandStr;
     private String commandUsage;
 
-    public CommandRegisterPacket(String commandStr, String commandUsage)
-    {
+    public CommandRegisterPacket(String commandStr, String commandUsage) {
         this.commandStr = commandStr;
         this.commandUsage = commandUsage;
     }
@@ -32,6 +31,6 @@ public class CommandRegisterPacket extends BeeCloudPacket {
 
     @Override
     public String to_String() {
-        return "CommandRegisterPacket:"+commandStr+":"+commandUsage;
+        return "CommandRegisterPacket:" + commandStr + ":" + commandUsage;
     }
 }

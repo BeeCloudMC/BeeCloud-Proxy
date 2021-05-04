@@ -11,8 +11,7 @@ import sun.misc.SignalHandler;
 
 public class Shutdown {
 
-    public static void shutdownTask()
-    {
+    public static void shutdownTask() {
         Signal sg = new Signal("TERM"); // kill -15 pid
         Signal.handle(sg, new SignalHandler() {
             @Override
@@ -20,16 +19,16 @@ public class Shutdown {
                 System.exit(0);
             }
         });
-        Runtime.getRuntime().addShutdownHook(new Thread(){
+        Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
                 ServerLogger.info("- Disabling plugins... -");
-                for (SynapsePlayer player: Server.getServer().getOnLinePlayer())
-                    ServerLogger.info(player.getName()+" quited the game. Reason: SynapseServer Closed");
+                for (SynapsePlayer player : Server.getServer().getOnLinePlayer())
+                    ServerLogger.info(player.getName() + " quited the game. Reason: SynapseServer Closed");
                 for (PluginBase plugin : PluginBase.pluginList)
-                    ServerLogger.info("关闭插件: "+plugin.getName());
+                    ServerLogger.info("关闭插件: " + plugin.getName());
                 DisconnectPacket packet = new DisconnectPacket();
-                BeeCloud.server.send(packet);
+                //BeeCloud.server.send(packet);
                 ServerLogger.info("- Closing your BeeCloud server... -");
             }
         });

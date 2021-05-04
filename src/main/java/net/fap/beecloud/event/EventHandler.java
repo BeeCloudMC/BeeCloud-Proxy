@@ -8,13 +8,11 @@ public class EventHandler {
         listener = lis;
     }
 
-    public static Listener getListener()
-    {
+    public static Listener getListener() {
         return listener;
     }
 
-    public static void callEvent(Event event)
-    {
+    public static void callEvent(Event event) {
         listener.call(event);
     }
 
